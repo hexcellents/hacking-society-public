@@ -1,0 +1,177 @@
+import os
+from utils import *
+import config
+from arch_generic_helper import *
+
+class arch_arm_helper(arch_generic_helper):
+	"""
+	Class for containing arch specific stuff for ARM
+	"""
+
+	registers = {
+		32: [
+			("r0","a1"),
+			("r1","a2"),
+			("r2","a3"),
+			("r3","a4"),
+			("r4","v1"),
+			("r5","v2"),
+			("r6","v3"),
+			("r7","v4"),
+			("r8","v5"),
+			("r9","sb"),
+			("r10","sl"),
+			("r11","fp"),
+			("r12","ip"),
+			("sp","r13"),
+			("lr","r14"),
+			("pc","r15"),
+			("cpsr","")
+		    ],
+	}
+
+	returnval_expr = "r0"
+
+	flags_register = "cpsr"
+        flags_names = {"negative":"N", "zero":"Z", "carry":"C", "overflow":"V", "saturation":"Q", "irq-mask":"I", "fiq-mask":"F", "thumb":"T"}
+        flag_N = 1 << 31
+        flag_Z = 1 << 30
+        flag_C = 1 << 29
+        flag_V = 1 << 28
+        flag_Q = 1 << 27
+
+        flag_I = 1 << 7
+        flag_F = 1 << 6
+        flag_T = 1 << 5
+        flag_M = (1 << 4) | (1 <<3 ) | (1 << 2) | (1 << 1) | (1 << 0)
+
+	conditions = {
+			"eq": "Z" ,
+			"ne": "not Z",
+			"cs": "C",			"hs": "C" ,
+			"cc": "not C",			"lo": "not C",
+			"mi": "N",
+			"pl": "not N",
+			"vs": "V",
+			"vc": "not V",
+			"hi": "C and not Z",
+			"ls": "not C or Z",
+			"ge": "N == V",
+			"lt": "N != V",
+			"gt": "not Z and (N == V)",
+			"le": "Z or (N != V",
+			"al": "True",
+			}
+	compare_base = [ "tst", "teq", "cmp" , "cmn" ]
+	call_base = [ "bl", "blx"]
+	jump_base = ["b", "bx"]
+	syscall_base = ["swi", "svc"]
+
+	extra_suffixes= [".w", ".n" ]
+
+	compare_instrs = ["tst", "teq", "cmp", "cmn"]
+	call_instrs = ["bl", "blx"]
+	jump_uncond = ["b", "bx"]
+	jump_instrs = []
+	return_regexes = []
+	syscall_instrs = ["swi", "svc"]
+	
+	gdb_setup_cmds = [ ]# "set disassembly-flavor intel" ]
+
+	def __init__(self, archname, bitness):
+		super(arch_arm_helper,self).__init__(archname, bitness)
+
+	def gen_call_instrs(self):
+		for cond in self.conditions.keys():
+			for call in self.call_base:
+				self.call_instrs.append(call + cond)
+				for suf in self.extra_suffixes:
+					self.call_instrs.append(call + cond + suf)
+
+		
+
+	def gen_jump_instrs(self):
+		for cond in self.conditions.keys():
+			for jump in self.jump_base:
+				self.jump_instrs.append(jump + cond)
+				for suf in self.extra_suffixes:
+					self.jump_instrs.append(jump + cond + suf)
+
+		update_uncond = []
+		for i in self.jump_uncond:
+                	self.jump_instrs.append(i)
+			for suf in self.extra_suffixes:
+				self.jump_instrs.append(i + suf)
+				update_uncond.append(i + suf)
+		for i in update_uncond:
+			self.jump_uncond.append(i)
+
+	def gen_return_regexes(self):
+		self.return_regexes.append("pop.*pc}")
+		self.return_regexes.append("ld[a-z]*[ \t]*pc")
+		self.return_regexes.append("ldm.*pc}")
+		self.return_regexes.append("bx[a-z]*[ \t]lr")
+		self.return_regexes.append("mov[a-z]*[ \t]pc")
+
+
+
+
+
+
+
+	def get_cpuflags(self,val):
+		flags = dict()
+		for i in self.flags_names.values() :
+			flags[i] = 0
+
+                cpsr = val
+                if not cpsr:
+                    return None
+                flags["N"] = bool(cpsr & self.flag_N)
+                flags["Z"] = bool(cpsr & self.flag_Z)
+                flags["C"] = bool(cpsr & self.flag_C)
+                flags["V"] = bool(cpsr & self.flag_V)
+                flags["Q"] = bool(cpsr & self.flag_Q)
+                flags["I"] = bool(cpsr & self.flag_I)
+                flags["F"] = bool(cpsr & self.flag_F)
+                flags["T"] = bool(cpsr & self.flag_T)
+                flags["M"] = bool(cpsr & self.flag_M)
+		return flags
+
+        def get_cpuflags_update_cmd(self, flagname, value, current_flags):
+                if flagname not in self.flags_names.keys():
+                        return False
+                if current_flags & eval("self.flag_%s" % self.flags_names[flagname]) == 0 and value == True:
+                        current_flags ^= eval("self.flag_%s" % self.flags_names[flagname])
+
+                if current_flags & eval("self.flag_%s" % self.flags_names[flagname]) != 0 and value == False:
+                        current_flags ^= eval("self.flag_%s" % self.flags_names[flagname])
+
+                cmd = "set $cpsr = 0x%x" % current_flags
+                return cmd
+
+	def test_conditional(self, opcode, flags):
+
+		if opcode in self.jump_uncond:
+			return True
+
+		for cond in self.conditions.keys():
+			for root in self.jump_base:
+				for suf in self.extra_suffixes + [""]:
+					if root + cond + suf == opcode:
+						expr = self.conditions[cond]
+						print "Eval-ing %s to %s" % (expr, eval(expr))
+						return eval(expr)
+
+
+
+if __name__ == "__main__":
+	current_arch = arch_arm_helper("arm", 32)
+	print current_arch.get_register_list()
+	print current_arch.get_register_altname("pc")
+	print current_arch.conditions
+	print current_arch.get_compare_instrs()
+	print current_arch.get_jump_instrs()
+	print current_arch.get_call_instrs()
+	print current_arch.get_return_regexes()
+	print current_arch.get_syscall_instrs()

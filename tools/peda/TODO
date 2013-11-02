@@ -1,0 +1,429 @@
+asmsearch -- Search for ASM instructions in memory
+	asmsearch "push ebp; ret"
+	asmsearch "push ?"
+
+	DOES NOT WORK because it relies on assembler.
+
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+
+assemble -- On the fly assemble and execute instructions using NASM
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+	DOES NOT WORK because it relies on assembler.
+
+
+
+cmpmem -- Compare content of a memory region with a file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+
+
+
+crashdump -- Display crashdump info and save to file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+deactive -- Bypass a function by ignoring its execution (eg sleep/alarm)
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+distance -- Calculate distance between two addresses
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+dumpargs -- Display arguments passed to a function when stopped at a call instruction
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+dumpmem -- Dump content of a memory region to raw binary file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+
+dumprop -- Dump all ROP gadgets in specific memory range
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+elfheader -- Get headers information from debugged ELF file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+elfsymbol -- Get non-debugging symbol information from an ELF file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+gennop -- Generate abitrary length NOP sled using given characters
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+getpid -- Get PID of current debugged process
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+
+getfile -- Get exec filename of current debugged process
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+goto -- Continue execution at an address
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+help -- Print the usage manual for PEDA commands
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+hexdump -- Display hex/ascii dump of data in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+hexprint -- Display hexified of data in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+jmpcall -- Search for JMP/CALL instructions in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+loadmem -- Load contents of a raw binary file to memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+lookup -- Search for all addresses/references to addresses which belong to a memory range
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+nearpc -- Disassemble instructions nearby current PC or given address
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+nextcall -- Step until next 'call' instruction in specific memory range
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+nextjmp -- Step until next 'j*' instruction in specific memory range
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+nxtest -- Perform real NX test to see if it is enabled/supported by OS
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+patch -- Patch memory start at an address with string/hexstring/int
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern -- Generate, search, or write a cyclic pattern to memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_arg -- Set argument list with cyclic pattern
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_create -- Generate a cyclic pattern
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_env -- Set environment variable with a cyclic pattern
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_offset -- Search for offset of a value in cyclic pattern
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_patch -- Write a cyclic pattern to memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pattern_search -- Search a cyclic pattern in registers and memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+payload -- Generate various type of ROP payload using ret2plt
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pdisass -- Format output of gdb disassemble command with colors
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pltbreak -- Set breakpoint at PLT functions match name regex
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+procinfo -- Display various info from /proc/pid/
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+profile -- Simple profiling to count executed instructions in the program
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+pyhelp -- Wrapper for python built-in help
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+readelf -- Get headers information from an ELF file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+refsearch -- Search for all references to a value in memory ranges
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+reload -- Reload PEDA sources, keep current options untouch
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+ropgadget -- Get common ROP gadgets of binary or library
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+ropsearch -- Search for ROP gadgets in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+searchmem -- Search for a pattern in memory; support regex search
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+session -- Save/restore a working gdb session to file as a script
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+set -- Set various PEDA options and other settings
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+sgrep -- Search for full strings contain the given pattern
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+shellcode -- Generate or download common shellcodes.
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+show -- Show various PEDA options and other settings
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+skeleton -- Generate python exploit code template
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+skip -- Skip execution of next count instructions
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+snapshot -- Save/restore process's snapshot to/from file
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+start -- Start debugged program and stop at most convenient entry
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+stepuntil -- Step until a desired instruction in specific memory range
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+strings -- Display printable strings in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+substr -- Search for substrings of a given string/number in memory
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+telescope -- Display memory content at an address with smart dereferences
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+tracecall -- Trace function calls made by the program
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+traceinst -- Trace specific instructions executed by the program
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+unptrace -- Disable anti-ptrace detection
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+utils -- Miscelaneous utilities from utils module
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+vmmap -- Get virtual mapping address ranges of section(s) in debugged process
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+waitfor -- Try to attach to new forked process; mimic "attach -waitfor"
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+xinfo -- Display detail information of address/registers
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+xormem -- XOR a memory region with a key
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+xprint -- Extra support to GDB's print command
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+xrefs -- Search for all call/data access references to a function/variable
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+xuntil -- Continue execution until an address or function
+	ARM 	-> 
+	X86 	-> 
+	x86_64 	-> 
+
+
+

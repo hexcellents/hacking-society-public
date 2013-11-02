@@ -1,0 +1,8 @@
+break *0x8048390
+  commands
+    silent
+    set $eax = 0
+    return
+    continue
+  end
+
