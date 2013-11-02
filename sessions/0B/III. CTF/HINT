@@ -1,0 +1,5 @@
+
+
+There is no ASLR
+
+libc is mapped starting at 0xb7e37000
